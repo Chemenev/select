@@ -1,26 +1,46 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="container">
+    <form novalidate>
+      <select-component
+        :option="arr"
+        :placeholder="placeholder"
+        :defaultId="1"
+        @selected-item="select"
+      />
+    </form>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import SelectComponent from './components/SelectComponent.vue';
 
 export default {
   name: 'App',
+  data() {
+    return {
+      arr: [
+        { id: '1', name: 'Апельсин' },
+        { id: '2', name: 'Тыква' },
+        { id: '3', name: 'Картофель' },
+        { id: '4', name: 'Ананас' },
+      ],
+      placeholder: 'Начните ввод',
+    };
+  },
   components: {
-    HelloWorld
-  }
-}
+    SelectComponent,
+  },
+  methods: {
+    select(selectedItem) {
+      console.log(selectedItem);
+    },
+  },
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.container {
+  margin: 0 auto;
+  width: 88%;
 }
 </style>
