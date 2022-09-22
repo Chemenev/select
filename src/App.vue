@@ -2,10 +2,10 @@
   <div class="container">
     <form novalidate>
       <select-component
-        :option="arr"
-        :placeholder="placeholder"
+        :options="products"
+        placeholder="Начните ввод"
         :defaultId="1"
-        @selected-item="select"
+        @selected="select"
       />
     </form>
   </div>
@@ -18,13 +18,12 @@ export default {
   name: 'App',
   data() {
     return {
-      arr: [
+      products: [
         { id: '1', name: 'Апельсин' },
         { id: '2', name: 'Тыква' },
         { id: '3', name: 'Картофель' },
         { id: '4', name: 'Ананас' },
       ],
-      placeholder: 'Начните ввод',
     };
   },
   components: {

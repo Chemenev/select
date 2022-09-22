@@ -2,18 +2,15 @@
   <div
     class="drop-inner"
     :class="{
-      active: isVisble === true,
+      active: isVisble,
     }"
     v-click-outside="hide"
   >
     <input-component
       v-model="modelValue"
       :placeholder="placeholder"
-      @input="
-        inputValue;
-        isVisble = true;
-      "
-      @drop-element="addDropClass"
+      @input="inputValue"
+      @update-droplist="addDropClass"
       @click="isVisble = true"
     />
     <div class="drop-btn" @click="isVisble = true">
@@ -29,9 +26,9 @@
     </div>
     <dropdown-component
       v-if="isVisble"
-      :option="filteredArr"
+      :options="filteredOptions"
       :positionClass="positionClass"
-      @select-item="selectItem"
+      @select="select"
       @click="isVisble = false"
     />
   </div>
@@ -51,7 +48,7 @@ export default {
     };
   },
   props: {
-    option: {
+    options: {
       type: Array,
       requared: true,
     },
@@ -63,17 +60,14 @@ export default {
     },
   },
   mounted() {
-    if (this.option.find((i) => i.id == this.defaultId)) {
-      const defaultValue = this.option.find((i) => i.id == this.defaultId);
+    const defaultValue = this.options.find((i) => i.id == this.defaultId);
+    if (defaultValue) {
       this.modelValue = defaultValue.name;
     }
   },
   computed: {
-    filteredArr() {
-      const filteredArr = this.option.filter((item) =>
-        item.name.includes(this.modelValue)
-      );
-      return filteredArr;
+    filteredOptions() {
+      return this.options.filter((item) => item.name.includes(this.modelValue));
     },
   },
   methods: {
@@ -83,9 +77,9 @@ export default {
     addDropClass(className) {
       this.positionClass = className;
     },
-    selectItem(selectedItem) {
+    select(selectedItem) {
       this.modelValue = selectedItem.name;
-      this.$emit('selected-item', selectedItem);
+      this.$emit('selected', selectedItem);
     },
     hide() {
       return (this.isVisble = false);

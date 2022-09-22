@@ -2,20 +2,20 @@
   <div class="dropdown-list" :class="positionClass">
     <div
       class="dropdown-list__item"
-      v-for="item in option"
+      v-for="item in options"
       :key="item.id"
       @click="selectItem(item)"
     >
       {{ item.name }}
     </div>
-    <div v-if="option == ''" class="list__item">не найдено</div>
+    <div v-if="options == ''" class="dropdown-list__item">не найдено</div>
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    option: {
+    options: {
       type: Array,
     },
     positionClass: {
@@ -24,7 +24,7 @@ export default {
   },
   methods: {
     selectItem(item) {
-      this.$emit('select-item', item);
+      this.$emit('select', item);
     },
   },
 };
