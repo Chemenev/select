@@ -33,7 +33,7 @@ export default {
       if (inputPosition.top >= window.innerHeight - 200) {
         this.positionClass = 'top';
       }
-      this.$emit('drop-element', this.positionClass);
+      this.$emit('update-droplist', this.positionClass);
       return this.positionClass;
     },
   },
